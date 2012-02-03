@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Smarty plugin
  *
@@ -9,14 +10,16 @@
 /**
  * Smarty noprint modifier plugin
  *
- * Type:     modifier<br>
- * Name:     noprint<br>
- * Purpose:  return an empty string
- * @author   Uwe Tews
- * @param array $params parameters
+ * Type: modifier<br>
+ * Name: noprint<br>
+ * Purpose: return an empty string
+ * 
+ * @author Uwe Tews
+ * @param $params array
+ *            parameters
  * @return string with compiled code
  */
-function smarty_modifiercompiler_noprint($params, $compiler)
+function smarty_modifiercompiler_noprint ($params, $compiler)
 {
     return "''";
 }

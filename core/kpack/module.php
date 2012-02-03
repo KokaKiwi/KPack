@@ -1,5 +1,7 @@
 <?php
-	class Module {
-		
-	}
+
+class Module
+{
+
+}
 ?>
