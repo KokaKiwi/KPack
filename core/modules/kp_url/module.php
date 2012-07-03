@@ -12,11 +12,11 @@ class KP_URL extends Module
         $this->uri = "";
     }
 
-    function process ()
+    function process ($options)
     {
         global $modules, $classes, $hooks, $uri_test;
         
-        $request_uri = $_SERVER['REQUEST_URI'];
+        $request_uri = $options['request'];
         if (preg_match("#^(.*)\?#", $request_uri, $matches)) {
             $request_uri = $matches[1];
         }

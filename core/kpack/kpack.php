@@ -7,12 +7,12 @@ class KPack
      * Main function.
      * Do page processing.
      */
-    static function process ()
+    static function process ($options = array())
     {
         global $modules, $hooks, $classes;
-        KPack::run_hook("pre_process");
-        KPack::run_hook("on_process");
-        KPack::run_hook("post_process");
+        KPack::run_hook("pre_process", $options);
+        KPack::run_hook("on_process", $options);
+        KPack::run_hook("post_process", $options);
     }
 
     static function register_module ($mod_id, $mod_name, $mod_version, 
@@ -58,7 +58,7 @@ class KPack
         $hooks[$hook_name][] = $hook_function;
     }
 
-    static function run_hook ($hook_name)
+    static function run_hook ($hook_name, $options = array())
     {
         global $modules, $hooks, $classes;
         if (isset($hooks[$hook_name])) {
@@ -70,10 +70,10 @@ class KPack
                     $class_name = $matches[2];
                     $func_name = $matches[3];
                     
-                    return $classes[$mod_id . "." . $class_name]->$func_name();
+                    return $classes[$mod_id . "." . $class_name]->$func_name($options);
                 }
                 else {
-                    return $hook();
+                    return $hook($options);
                 }
             }
         }
