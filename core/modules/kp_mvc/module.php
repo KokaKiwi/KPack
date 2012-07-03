@@ -38,19 +38,6 @@ class KP_MVC extends Module
                          $request != '') {
                             $exts = explode(".", $request);
                             $ext = array_pop($exts);
-                            /*
-                             * switch($ext) { case "css": $content_type =
-                             * "text/css"; break; case "js": $content_type =
-                             * "text/javascript"; break; default: $content_type
-                             * = "text/plain"; } Header("Content-type: " .
-                             * $content_type); $smarty =
-                             * KPack::get_class("kp_smarty", "KP_Smarty");
-                             * $smarty->smarty->left_delimiter = '{{';
-                             * $smarty->smarty->right_delimiter = '}}'; echo
-                             * $smarty->smarty->fetch(KP_APPS_PATH . '/public/'
-                             * . $request); $smarty->smarty->left_delimiter =
-                             * '{'; $smarty->smarty->right_delimiter = '}';
-                             */
                             switch ($ext) {
                                 case "css":
                                     Header("Content-type: text/css");
@@ -67,6 +54,13 @@ class KP_MVC extends Module
                                 
                                 case "js":
                                     Header("Content-type: text/javascript");
+                                    $file = file_get_contents(
+                                            KP_APPS_PATH . '/public/' . $request);
+                                    echo $file;
+                                    break;
+                                    
+                                case "png": case "jpg":
+                                    Header("Content-type: image/" . $ext);
                                     $file = file_get_contents(
                                             KP_APPS_PATH . '/public/' . $request);
                                     echo $file;
