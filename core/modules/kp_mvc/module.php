@@ -23,18 +23,18 @@
             $this->tpl_vars = array();
         }
     
-        function pre_process ()
+        function pre_process ($options)
         {
             $this->include_dir(KP_APPS_PATH . "/config");
             $this->include_dir(KP_APPS_PATH . "/controllers");
-            Kpack::get_class("kp_smarty", "KP_Smarty")->smarty->template_dir = KP_APPS_PATH .
+            Kpack::get_class("kp_smarty", "KP_Smarty")->smarty->template_dir = $options['app_path'] .
             "/views";
         }
     
-        function post_process ()
+        function post_process ($options)
         {
             $request = KPack::get_class("kp_url", "KP_URL")->uri;
-            if (file_exists(KP_APPS_PATH . '/public/' . $request) &&
+            if (file_exists($options['app_path'] . '/public/' . $request) &&
                     $request != '') {
                 $exts = explode(".", $request);
                 $ext = array_pop($exts);
@@ -55,20 +55,20 @@
                     case "js":
                         Header("Content-type: text/javascript");
                         $file = file_get_contents(
-                                KP_APPS_PATH . '/public/' . $request);
+                                $options['app_path'] . '/public/' . $request);
                         echo $file;
                         break;
     
                     case "png": case "jpg":
                         Header("Content-type: image/" . $ext);
                         $file = file_get_contents(
-                                KP_APPS_PATH . '/public/' . $request);
+                                $options['app_path'] . '/public/' . $request);
                         echo $file;
                         break;
     
                     default:
                         $file = file_get_contents(
-                        KP_APPS_PATH . '/public/' . $request);
+                        $options['app_path'] . '/public/' . $request);
                         echo $file;
                 }
             }
